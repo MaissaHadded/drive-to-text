@@ -1,0 +1,26 @@
+{
+  "batch_id": "sample-batch-001",
+  "status": "done",
+  "files": [
+    {
+      "id": "sample-pdf-id",
+      "name": "facture.pdf",
+      "mime_type": "application/pdf",
+      "size": 15342,
+      "status": "done",
+      "text": "Facture n° 2026-001\nTotal TTC : 120,00 EUR",
+      "method": "pdf_parser",
+      "error": null
+    },
+    {
+      "id": "sample-image-id",
+      "name": "note.png",
+      "mime_type": "image/png",
+      "size": 2048,
+      "status": "done",
+      "text": "Rendez-vous mardi à 14 h.",
+      "method": "ocr",
+      "error": null
+    }
+  ]
+}
