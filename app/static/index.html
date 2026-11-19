@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <title>Drive-to-Text · DI Xpertia</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Drive-to-Text, accueil">
+          <span class="brand-mark">D</span>
+          <span>DI Xpertia <span class="brand-divider">/</span> <strong>Drive-to-Text</strong></span>
+        </a>
+        <span class="status-pill"><span class="status-dot"></span> POC local</span>
+      </header>
+
+      <section class="intro">
+        <p class="eyebrow">DOCUMENT INTELLIGENCE · EXTRACTION</p>
+        <h1>Vos documents,<br><span>en texte exploitable.</span></h1>
+        <p class="intro-copy">Importez un dossier Google Drive public. Les PDF et images sont traités avec le bon moteur, puis réunis dans un export JSON.</p>
+      </section>
+
+      <section class="panel source-panel" aria-labelledby="source-title">
+        <div class="section-heading">
+          <div class="step-number">01</div>
+          <div><h2 id="source-title">Source des documents</h2><p>Le dossier doit être accessible à toute personne disposant du lien.</p></div>
+        </div>
+        <form id="folder-form">
+          <label for="folder-url">Lien du dossier Google Drive</label>
+          <div class="input-row">
+            <input id="folder-url" name="folder_url" type="url" placeholder="https://drive.google.com/drive/folders/…" required>
+            <button class="button button-primary" type="submit" id="load-button">Lister les fichiers <span aria-hidden="true">→</span></button>
+          </div>
+        </form>
+        <p class="notice"><span aria-hidden="true">i</span> Aucun compte Drive n’est utilisé. Seuls les dossiers publics sont pris en charge.</p>
+      </section>
+
+      <section id="files-section" class="panel files-panel" aria-labelledby="files-title" hidden>
+        <div class="section-heading">
+          <div class="step-number">02</div>
+          <div><h2 id="files-title">Fichiers du dossier</h2><p id="file-summary">Sélectionnez les documents à traiter.</p></div>
+        </div>
+        <div class="file-toolbar">
+          <label class="select-all"><input type="checkbox" id="select-all"><span>Tout sélectionner</span></label>
+          <span id="selection-count" class="selection-count">0 sélectionné</span>
+        </div>
+        <div id="file-list" class="file-list"></div>
+        <div class="run-row">
+          <label class="language-picker" for="ocr-language">Langue OCR
+            <select id="ocr-language">
+              <option value="fr">Français</option>
+              <option value="en">English</option>
+              <option value="ar">العربية</option>
+            </select>
+          </label>
+          <button id="run-button" class="button button-primary" type="button" disabled>Lancer l’extraction <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <section id="results-section" class="panel results-panel" aria-labelledby="results-title" hidden>
+        <div class="results-heading">
+          <div class="section-heading">
+            <div class="step-number">03</div>
+            <div><h2 id="results-title">Résultats du traitement</h2><p id="batch-summary">Traitement en cours…</p></div>
+          </div>
+          <button id="export-button" class="button button-secondary" type="button" disabled>↓ <span>Exporter JSON</span></button>
+        </div>
+        <div id="results-list" class="results-list" aria-live="polite"></div>
+      </section>
+      <div id="toast" class="toast" role="alert" hidden></div>
+      <footer>Drive-to-Text <span>·</span> Traitement local, documents conservés dans votre Drive.</footer>
+    </main>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
