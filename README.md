@@ -44,8 +44,9 @@ Renseignez `GOOGLE_DRIVE_API_KEY` dans `.env`, puis lancez le serveur :
 python -m uvicorn app.main:app --reload
 ```
 
-Ouvrez <http://127.0.0.1:8000>. Pour OCR hors Docker, installez aussi Tesseract
-et les fichiers de langue `fra`, `eng` et/ou `ara` correspondant à votre choix.
+Ouvrez <http://127.0.0.1:8000>. Les petites images sont agrandies avant OCR.
+Pour OCR hors Docker, installez Tesseract et les données de langue `fra` et `eng`
+pour le français, `eng` pour l’anglais, ou `ara` et `eng` pour l’arabe.
 
 ## Docker
 

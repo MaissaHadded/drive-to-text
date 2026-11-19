@@ -1,3 +1,4 @@
+import math
 from io import BytesIO
 
 from PIL import Image, UnidentifiedImageError
@@ -6,7 +7,7 @@ import pytesseract
 from pytesseract import TesseractNotFoundError
 
 
-OCR_LANGUAGES = {"fr": "fra", "en": "eng", "ar": "ara"}
+OCR_LANGUAGES = {"fr": "fra+eng", "en": "eng", "ar": "ara+eng"}
 
 
 class ExtractionError(Exception):
@@ -33,9 +34,16 @@ def extract_text(content: bytes, mime_type: str, ocr_language: str) -> tuple[str
         try:
             with Image.open(BytesIO(content)) as image:
                 image.load()
+                scale = min(4, max(1, math.ceil(1000 / max(image.size))))
+                if scale > 1:
+                    image = image.resize(
+                        (image.width * scale, image.height * scale),
+                        Image.Resampling.LANCZOS,
+                    )
                 text = pytesseract.image_to_string(
                     image,
                     lang=OCR_LANGUAGES[ocr_language],
+                    config="--oem 1 --psm 6",
                 ).strip()
         except TesseractNotFoundError as exc:
             raise ExtractionError(

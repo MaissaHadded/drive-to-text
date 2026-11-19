@@ -37,15 +37,17 @@ def test_image_is_routed_to_ocr(monkeypatch):
     image.save(encoded, format="PNG")
     calls = {}
 
-    def fake_ocr(received_image, lang):
+    def fake_ocr(received_image, lang, config):
         calls["lang"] = lang
-        assert received_image.size == (4, 4)
+        calls["config"] = config
+        assert received_image.size == (16, 16)
         return "Texte OCR"
 
     monkeypatch.setattr("app.extract.pytesseract.image_to_string", fake_ocr)
     text, method = extract_text(encoded.getvalue(), "image/png", "fr")
     assert (text, method) == ("Texte OCR", "ocr")
-    assert calls["lang"] == "fra"
+    assert calls["lang"] == "fra+eng"
+    assert calls["config"] == "--oem 1 --psm 6"
 
 
 def test_rejects_unavailable_language():
